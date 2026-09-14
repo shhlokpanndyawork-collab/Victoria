@@ -1,0 +1,24 @@
+kind = "mobile"
+previewPath = "/"
+title = "VIC Genesis V1"
+description = "An Android-first digital companion with a cinematic landscape presence, natural conversation states, persistent local memory, multilingual controls, and a hidden double-tap command interface."
+version = "1.0.0"
+id = "artifacts/vic-genesis"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/" ]
+localPort = 24220
+
+[services.development]
+run = "pnpm --filter @workspace/vic-genesis run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vic-genesis", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/vic-genesis", "run", "serve" ]
+
+[services.env]
+PORT = "24220"
+BASE_PATH = "/"

@@ -1,0 +1,2 @@
+- [Monorepo Expo package install](expo-package-install.md) — target the mobile package when adding Expo modules; root-level installs are rejected by the workspace guard.
+- [Android speech recognition build](android-speech-recognition.md) — native STT needs the config plugin and a rebuilt client; web preview only validates the JavaScript surface.

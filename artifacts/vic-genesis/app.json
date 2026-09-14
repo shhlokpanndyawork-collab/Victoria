@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "VIC Genesis V1",
+    "slug": "vic-genesis",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/images/icon.png",
+    "scheme": "vic-genesis",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.velmora.vicgenesis",
+      "versionCode": 1,
+      "orientation": "landscape",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#0B0713"
+      },
+      "permissions": [
+        "RECORD_AUDIO",
+        "INTERNET",
+        "MODIFY_AUDIO_SETTINGS"
+      ],
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Allow VIC to listen for your voice.",
+          "speechRecognitionPermission": "Allow VIC to understand your voice.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0B0713",
+          "image": "./assets/images/icon.png",
+          "imageWidth": 160
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b41bf6d6-a891-4ef4-9e30-96839f5a1e63"
+      }
+    },
+    "owner": "shlokpandya24s-team"
+  }
+}

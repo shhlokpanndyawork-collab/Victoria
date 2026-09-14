@@ -1,0 +1,62 @@
+name: EAS Build (VIC Genesis)
+
+# Builds the Android app in Expo's cloud whenever this branch is pushed,
+# or manually from the GitHub Actions tab ("Run workflow").
+#
+# One-time setup required (in the GitHub website, no terminal):
+#   1. Get an Expo access token: https://expo.dev/accounts/[your-account]/settings/access-tokens
+#   2. In this repo: Settings -> Secrets and variables -> Actions -> New repository secret
+#      Name: EXPO_TOKEN
+#      Value: <the token from step 1>
+#   3. Make sure app.json's expo.extra.eas.projectId is set to your real EAS
+#      project ID (see README) before this workflow will succeed.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'artifacts/vic-genesis/**'
+      - '.github/workflows/eas-build.yml'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'EAS build profile'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: artifacts/vic-genesis
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: .
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build Android app on EAS
+        run: eas build --platform android --profile ${{ github.event.inputs.profile || 'preview' }} --non-interactive --no-wait
